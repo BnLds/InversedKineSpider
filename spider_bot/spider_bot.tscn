@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://cu22myrblk7ph"]
+
+[ext_resource type="PackedScene" uid="uid://b87qfi23naype" path="res://assets/models/spider_bot_model.gltf" id="1_gfk7a"]
+[ext_resource type="Material" uid="uid://ck3wqux50u084" path="res://materials/spider_body_material.tres" id="2_hory4"]
+[ext_resource type="Material" uid="uid://b3jt3dts8iuvm" path="res://materials/spider_eye_material.tres" id="3_5ah0t"]
+[ext_resource type="Material" uid="uid://cxmnt4d4hxoqx" path="res://materials/spider_leg_material.tres" id="4_1enu6"]
+
+[node name="spider_bot_model" instance=ExtResource("1_gfk7a")]
+
+[node name="Body_2" parent="Armature/Skeleton3D" index="0"]
+transform = Transform3D(0.325856, 0, 0, 0, 0.325856, 0, 0, 0, 0.325856, 0, 0, 0)
+bone_idx = 21
+
+[node name="Body_2" parent="Armature/Skeleton3D/Body_2" index="0"]
+material_override = ExtResource("2_hory4")
+
+[node name="Cylinder" parent="Armature/Skeleton3D" index="1"]
+transform = Transform3D(0.325856, 0, 0, 0, 0, -0.325856, 0, 0.325856, 0, 0, 0.101015, -0.348666)
+bone_idx = 22
+
+[node name="Cylinder" parent="Armature/Skeleton3D/Cylinder" index="0"]
+material_override = ExtResource("3_5ah0t")
+
+[node name="Leg" parent="Armature/Skeleton3D" index="2"]
+material_override = ExtResource("4_1enu6")
+
+[node name="FrontLeftIK" type="SkeletonIK3D" parent="Armature/Skeleton3D" index="3"]
+root_bone = &"leg1FrontLeft"
+tip_bone = &"Foot IKFrontLeft"
+
+[node name="FrontRightIK" type="SkeletonIK3D" parent="Armature/Skeleton3D" index="4"]
+root_bone = &"leg1FrontRight"
+tip_bone = &"Foot IKFrontRight"
+
+[node name="BackLeftIK" type="SkeletonIK3D" parent="Armature/Skeleton3D" index="5"]
+root_bone = &"leg1BackLeft"
+tip_bone = &"Foot IKBackLeft"
+
+[node name="BackRightIK" type="SkeletonIK3D" parent="Armature/Skeleton3D" index="6"]
+root_bone = &"leg1BackRight"
+tip_bone = &"Foot IKBackRight"

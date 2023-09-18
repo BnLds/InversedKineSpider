@@ -1,0 +1,8 @@
+res://main/main.tscn
+res://main/shaders/sky_shader.gdshader
+res://materials/floor_material.tres
+res://materials/wall_material.tres
+res://materials/reflective_material.tres
+res://spider_bot/spider_bot.tscn
+res://materials/spider_leg_material.tres
+res://materials/spider_eye_material.tres

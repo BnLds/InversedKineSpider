@@ -1,0 +1,8 @@
+SkeletonIK3D
+DirectionalLight3D
+ReflectionProbe
+CSGSphere3D
+Node
+CSGBox3D
+WorldEnvironment
+Camera3D
