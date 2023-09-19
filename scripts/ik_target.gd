@@ -1,5 +1,6 @@
 extends Marker3D
 
+@onready var spider_bot = $".."
 @export var step_target: Node3D
 @export var step_distance: float = 3.0
 
@@ -9,9 +10,10 @@ extends Marker3D
 var is_stepping := false
 
 func _process(delta):
-	if !is_stepping && !adjacent_target.is_stepping && abs(global_position.distance_to(step_target.global_position)) > step_distance:
-		step()
-		opposite_target.step()
+	if spider_bot.is_grounded:
+		if !is_stepping && !adjacent_target.is_stepping && abs(global_position.distance_to(step_target.global_position)) > step_distance:
+			step()
+			opposite_target.step()
 
 func step():
 	var target_position = step_target.global_position
