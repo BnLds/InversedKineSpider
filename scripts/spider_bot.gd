@@ -37,7 +37,7 @@ func _process(delta):
 		fall_velocity += GRAVITY * delta
 		global_translate(Vector3.UP * fall_velocity)
 		"""Align the body to the direction of the floor"""
-		var target_basis = Utils._basis_from_normal(Vector3.UP)
+		var target_basis = Utils._basis_from_normal(transform, Vector3.UP)
 		transform.basis = lerp(transform.basis, target_basis, move_speed * delta).orthonormalized()
 		
 	if is_grounded:
@@ -47,7 +47,7 @@ func _process(delta):
 		var plane1 = Plane(bl_leg.global_position, fl_leg.global_position, fr_leg.global_position)
 		var plane2 = Plane(fr_leg.global_position, br_leg.global_position, bl_leg.global_position)
 		var avg_normal = ((plane1.normal + plane2.normal) / 2).normalized()
-		var target_basis = Utils._basis_from_normal(avg_normal)
+		var target_basis = Utils._basis_from_normal(transform, avg_normal)
 		transform.basis = lerp(transform.basis, target_basis, move_speed * delta).orthonormalized()
 		
 		"""Ensure the spider body is always at the same distance from the ground"""
