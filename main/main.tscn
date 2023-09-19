@@ -22,9 +22,6 @@ reflected_light_source = 2
 
 [node name="main" type="Node3D"]
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, -4.6327e-08, 7.41387e-08, 0, 0.848048, 0.529919, -8.74228e-08, 0.529919, -0.848048, 0, 20, -20)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nf4g6")
 
@@ -80,3 +77,6 @@ material = ExtResource("4_t2ig7")
 
 [node name="SpiderBot" parent="." instance=ExtResource("5_2drgm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.51273, -8.19666)
+
+[node name="Camera3D" type="Camera3D" parent="SpiderBot"]
+transform = Transform3D(1, 0, 0, 0, 0.848048, 0.529919, 0, -0.529919, 0.848048, 0, 9.48727, 12.1031)
