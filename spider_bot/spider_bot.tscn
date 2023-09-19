@@ -1,11 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://cu22myrblk7ph"]
+[gd_scene load_steps=10 format=3 uid="uid://cu22myrblk7ph"]
 
 [ext_resource type="PackedScene" uid="uid://b87qfi23naype" path="res://assets/models/spider_bot_model.gltf" id="1_gfk7a"]
+[ext_resource type="Script" path="res://scripts/spider_bot.gd" id="2_5xvbm"]
 [ext_resource type="Material" uid="uid://ck3wqux50u084" path="res://materials/spider_body_material.tres" id="2_hory4"]
 [ext_resource type="Material" uid="uid://b3jt3dts8iuvm" path="res://materials/spider_eye_material.tres" id="3_5ah0t"]
 [ext_resource type="Material" uid="uid://cxmnt4d4hxoqx" path="res://materials/spider_leg_material.tres" id="4_1enu6"]
+[ext_resource type="Script" path="res://scripts/start_ik.gd" id="5_e3oph"]
+[ext_resource type="Script" path="res://scripts/ik_target.gd" id="7_fvciv"]
+[ext_resource type="Script" path="res://scripts/step_ray.gd" id="7_mhy1w"]
+[ext_resource type="Script" path="res://scripts/StepTargetContainer.gd" id="8_7owv5"]
 
-[node name="spider_bot_model" instance=ExtResource("1_gfk7a")]
+[node name="SpiderBot" instance=ExtResource("1_gfk7a")]
+script = ExtResource("2_5xvbm")
 
 [node name="Body_2" parent="Armature/Skeleton3D" index="0"]
 transform = Transform3D(0.325856, 0, 0, 0, 0.325856, 0, 0, 0, 0.325856, 0, 0, 0)
@@ -25,17 +31,108 @@ material_override = ExtResource("3_5ah0t")
 material_override = ExtResource("4_1enu6")
 
 [node name="FrontLeftIK" type="SkeletonIK3D" parent="Armature/Skeleton3D" index="3"]
+process_priority = 1
 root_bone = &"leg1FrontLeft"
 tip_bone = &"Foot IKFrontLeft"
+use_magnet = true
+magnet = Vector3(0, 10, 0)
+target_node = NodePath("../../../FrontLeftIKTarget")
+script = ExtResource("5_e3oph")
 
 [node name="FrontRightIK" type="SkeletonIK3D" parent="Armature/Skeleton3D" index="4"]
+process_priority = 1
 root_bone = &"leg1FrontRight"
 tip_bone = &"Foot IKFrontRight"
+use_magnet = true
+magnet = Vector3(0, 10, 0)
+target_node = NodePath("../../../FrontRightIKTarget")
+script = ExtResource("5_e3oph")
 
 [node name="BackLeftIK" type="SkeletonIK3D" parent="Armature/Skeleton3D" index="5"]
+process_priority = 1
 root_bone = &"leg1BackLeft"
 tip_bone = &"Foot IKBackLeft"
+use_magnet = true
+magnet = Vector3(0, 10, 0)
+target_node = NodePath("../../../BackLeftIKTarget")
+script = ExtResource("5_e3oph")
 
 [node name="BackRightIK" type="SkeletonIK3D" parent="Armature/Skeleton3D" index="6"]
+process_priority = 1
 root_bone = &"leg1BackRight"
 tip_bone = &"Foot IKBackRight"
+use_magnet = true
+magnet = Vector3(0, 10, 0)
+target_node = NodePath("../../../BackRightIKTarget")
+script = ExtResource("5_e3oph")
+
+[node name="FrontLeftIKTarget" type="Marker3D" parent="." index="1" node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
+transform = Transform3D(3.06884, 0, 0, 0, 3.06884, 0, 0, 0, 3.06884, -3.24129, -2, -3.24088)
+top_level = true
+script = ExtResource("7_fvciv")
+step_target = NodePath("../StepTargetContainer/FrontLeftStepTarget")
+adjacent_target = NodePath("../FrontRightIKTarget")
+opposite_target = NodePath("../BackRightIKTarget")
+
+[node name="FrontRightIKTarget" type="Marker3D" parent="." index="2" node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
+transform = Transform3D(3.06884, 0, 0, 0, 3.06884, 0, 0, 0, 3.06884, 3.05563, -2, -3.20896)
+top_level = true
+script = ExtResource("7_fvciv")
+step_target = NodePath("../StepTargetContainer/FrontRightStepTarget")
+adjacent_target = NodePath("../FrontLeftIKTarget")
+opposite_target = NodePath("../BackLeftIKTarget")
+
+[node name="BackLeftIKTarget" type="Marker3D" parent="." index="3" node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
+transform = Transform3D(3.06884, 0, 0, 0, 3.06884, 0, 0, 0, 3.06884, -3.3501, -2, 3.1616)
+top_level = true
+script = ExtResource("7_fvciv")
+step_target = NodePath("../StepTargetContainer/BackLeftStepTarget")
+adjacent_target = NodePath("../BackRightIKTarget")
+opposite_target = NodePath("../FrontRightIKTarget")
+
+[node name="BackRightIKTarget" type="Marker3D" parent="." index="4" node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
+transform = Transform3D(3.06884, 0, 0, 0, 3.06884, 0, 0, 0, 3.06884, 3.2748, -2, 3.46979)
+top_level = true
+script = ExtResource("7_fvciv")
+step_target = NodePath("../StepTargetContainer/BackRightStepTarget")
+adjacent_target = NodePath("../BackLeftIKTarget")
+opposite_target = NodePath("../FrontLeftIKTarget")
+
+[node name="StepTargetContainer" type="Node3D" parent="." index="5"]
+script = ExtResource("8_7owv5")
+
+[node name="FrontLeftStepTarget" type="Marker3D" parent="StepTargetContainer" index="0"]
+transform = Transform3D(3.06884, 0, 0, 0, 3.06884, 0, 0, 0, 3.06884, -3.24129, -2, -3.24088)
+
+[node name="RayCast3D" type="RayCast3D" parent="StepTargetContainer/FrontLeftStepTarget" index="0" node_paths=PackedStringArray("step_target")]
+transform = Transform3D(0.999753, -0.0141501, 0.0171375, 0.0191898, 0.938589, -0.344504, -0.0112103, 0.344748, 0.938628, -0.058933, 3.55278, 1.30414)
+target_position = Vector3(0, -5, 0)
+script = ExtResource("7_mhy1w")
+step_target = NodePath("..")
+
+[node name="BackLeftStepTarget" type="Marker3D" parent="StepTargetContainer" index="1"]
+transform = Transform3D(3.06884, 0, 0, 0, 3.06884, 0, 0, 0, 3.06884, -3.3501, -2, 3.1616)
+
+[node name="RayCast3D" type="RayCast3D" parent="StepTargetContainer/BackLeftStepTarget" index="0" node_paths=PackedStringArray("step_target")]
+transform = Transform3D(0.99969, -0.0177543, 0.0174498, 0.0157446, 0.993892, 0.109235, -0.0192825, -0.108926, 0.993863, -0.0586137, 3.55278, -0.394521)
+target_position = Vector3(0, -5, 0)
+script = ExtResource("7_mhy1w")
+step_target = NodePath("..")
+
+[node name="FrontRightStepTarget" type="Marker3D" parent="StepTargetContainer" index="2"]
+transform = Transform3D(3.06884, 0, 0, 0, 3.06884, 0, 0, 0, 3.06884, 3.05563, -2, -3.20896)
+
+[node name="RayCast3D" type="RayCast3D" parent="StepTargetContainer/FrontRightStepTarget" index="0" node_paths=PackedStringArray("step_target")]
+transform = Transform3D(0.999753, -0.0141501, 0.0171375, 0.0179402, 0.968973, -0.246517, -0.0131176, 0.246763, 0.968987, -0.0422314, 3.55278, 0.917337)
+target_position = Vector3(0, -5, 0)
+script = ExtResource("7_mhy1w")
+step_target = NodePath("..")
+
+[node name="BackRightStepTarget" type="Marker3D" parent="StepTargetContainer" index="3"]
+transform = Transform3D(3.06884, 0, 0, 0, 3.06884, 0, 0, 0, 3.06884, 3.2748, -2, 3.46979)
+
+[node name="RayCast3D" type="RayCast3D" parent="StepTargetContainer/BackRightStepTarget" index="0" node_paths=PackedStringArray("step_target")]
+transform = Transform3D(0.999678, -0.0184238, 0.0174252, 0.0157348, 0.989521, 0.143531, -0.019887, -0.143211, 0.989493, -0.075142, 3.55278, -0.503321)
+target_position = Vector3(0, -5, 0)
+script = ExtResource("7_mhy1w")
+step_target = NodePath("..")

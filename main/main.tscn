@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://byicpcfryfkes"]
+[gd_scene load_steps=9 format=3 uid="uid://byicpcfryfkes"]
 
 [ext_resource type="Shader" path="res://main/shaders/sky_shader.gdshader" id="1_jcjlw"]
 [ext_resource type="Material" uid="uid://qnfx3jlg0sy5" path="res://materials/floor_material.tres" id="2_0140s"]
 [ext_resource type="Material" uid="uid://cckbxsr6771mw" path="res://materials/wall_material.tres" id="3_ebayy"]
 [ext_resource type="Material" uid="uid://cx3c781hdior1" path="res://materials/reflective_material.tres" id="4_t2ig7"]
+[ext_resource type="PackedScene" uid="uid://cu22myrblk7ph" path="res://spider_bot/spider_bot.tscn" id="5_2drgm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fnjtq"]
 shader = ExtResource("1_jcjlw")
@@ -22,6 +23,7 @@ reflected_light_source = 2
 [node name="main" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, -4.6327e-08, 7.41387e-08, 0, 0.848048, 0.529919, -8.74228e-08, 0.529919, -0.848048, 0, 20, -20)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nf4g6")
@@ -32,31 +34,49 @@ transform = Transform3D(1, 0, 0, 0, 1, -1.74846e-07, 0, 1.74846e-07, 1, 0, 6, 0)
 [node name="level" type="Node" parent="."]
 
 [node name="floor" type="CSGBox3D" parent="level"]
-size = Vector3(10, 1, 10)
+use_collision = true
+size = Vector3(100, 1, 100)
 material = ExtResource("2_0140s")
 
 [node name="wall" type="CSGBox3D" parent="level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.48977, 1.48119, 0)
-size = Vector3(1, 2, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.4898, 1.48119, 0)
+use_collision = true
+size = Vector3(1, 20, 100)
 material = ExtResource("3_ebayy")
 
 [node name="wall2" type="CSGBox3D" parent="level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.51023, 1.48119, 0)
-size = Vector3(1, 2, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.5102, 1.48119, 0)
+use_collision = true
+size = Vector3(1, 20, 100)
 material = ExtResource("3_ebayy")
 
 [node name="wall3" type="CSGBox3D" parent="level"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0102322, 1.48119, -4.5)
-size = Vector3(1, 2, 8)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0102322, 1.48119, -49.5)
+use_collision = true
+size = Vector3(1, 20, 98)
 material = ExtResource("3_ebayy")
 
 [node name="wall4" type="CSGBox3D" parent="level"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0102318, 1.48119, 4.5)
-size = Vector3(1, 2, 8)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0102318, 1.48119, 49.5)
+use_collision = true
+size = Vector3(1, 21, 98)
 material = ExtResource("3_ebayy")
 
 [node name="mirror_sphere" type="CSGSphere3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.998738, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0.998738, 13.3647)
+use_collision = true
+radius = 17.449
 radial_segments = 30
 rings = 18
 material = ExtResource("4_t2ig7")
+
+[node name="mirror_sphere2" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.22462, -14.2184, 7.41571)
+use_collision = true
+radius = 17.449
+radial_segments = 30
+rings = 18
+material = ExtResource("4_t2ig7")
+
+[node name="SpiderBot" parent="." instance=ExtResource("5_2drgm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.51273, -8.19666)

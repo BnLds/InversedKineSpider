@@ -1,3 +1,8 @@
+CollisionShape3D
+StaticBody3D
+RayCast3D
+Node3D
+Marker3D
 SkeletonIK3D
 DirectionalLight3D
 ReflectionProbe
