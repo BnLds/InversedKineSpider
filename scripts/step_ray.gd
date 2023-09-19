@@ -12,5 +12,3 @@ func _physics_process(delta):
 		if hit_point && hit_point.distance_to(step_target.global_position) > min_distance:
 			if  hit_point.distance_to(step_target.global_position)<max_distance:
 				step_target.global_position = hit_point
-			else:
-				print("fail")
