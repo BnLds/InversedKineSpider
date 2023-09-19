@@ -1,4 +1,4 @@
-res://main/main.tscn
+res://spider_bot/spider_bot.tscn
 res://main/shaders/sky_shader.gdshader
 res://materials/floor_material.tres
 res://materials/wall_material.tres
@@ -6,6 +6,7 @@ res://materials/reflective_material.tres
 res://materials/spider_body_material.tres
 res://materials/spider_eye_material.tres
 res://materials/spider_leg_material.tres
-res://spider_bot/spider_bot.tscn
-res://scripts/step_ray.gd
-res://scripts/ik_target.gd
+res://scripts/globals/utils.gd
+res://scripts/spider_bot.gd
+res://scripts/StepTargetContainer.gd
+res://main/main.tscn
