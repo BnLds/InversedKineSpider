@@ -6,9 +6,7 @@ res://materials/reflective_material.tres
 res://materials/spider_body_material.tres
 res://materials/spider_eye_material.tres
 res://materials/spider_leg_material.tres
-res://scripts/globals/utils.gd
-res://scripts/spider_bot.gd
-res://scripts/StepTargetContainer.gd
-res://main/main.tscn
-res://scripts/step_ray.gd
 res://scripts/ik_target.gd
+res://main/main.tscn
+res://scripts/spider_bot.gd
+res://scripts/step_ray.gd

@@ -3,6 +3,7 @@ extends Node3D
 const GRAVITY = -1
 
 @export var move_speed : float = 5.0
+@export var rot_fall_speed : float = 10.0
 @export var turn_speed : float = 1.0
 @export var jump_amplitude : float = 10.0
 @export var jump_speed : float = 3.0
@@ -38,7 +39,7 @@ func _process(delta):
 		global_translate(Vector3.UP * fall_velocity)
 		"""Align the body to the direction of the floor"""
 		var target_basis = Utils._basis_from_normal(transform, Vector3.UP)
-		transform.basis = lerp(transform.basis, target_basis, move_speed * delta).orthonormalized()
+		transform.basis = lerp(transform.basis, target_basis, rot_fall_speed * delta).orthonormalized()
 		
 	if is_grounded:
 		fall_velocity = 0

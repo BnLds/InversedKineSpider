@@ -1,6 +1,15 @@
 extends Marker3D
 
 @onready var spider_bot = $".."
+@onready var fl_init = $"../FrontLeftInit"
+@onready var fr_init = $"../FrontRightInit"
+@onready var bl_init = $"../BackLeftInit"
+@onready var br_init = $"../BackRightInit"
+@onready var fl_target = $"../FrontLeftIKTarget"
+@onready var fr_target = $"../FrontRightIKTarget"
+@onready var bl_target = $"../BackLeftIKTarget"
+@onready var br_target = $"../BackRightIKTarget"
+
 @export var step_target: Node3D
 @export var step_distance: float = 3.0
 @export var max_step_distance: float = 6.0
@@ -31,7 +40,17 @@ func step():
 	t.tween_callback(func(): is_stepping = false)
 	
 func _fall():
-	var target_position = spider_bot.global_position - Vector3.UP*3
+	var target_position
+	match name:
+		fl_target.name:
+			target_position = fl_init.global_position
+		fr_target.name:
+			target_position = fr_init.global_position
+		bl_target.name:
+			target_position = bl_init.global_position
+		br_target.name:
+			target_position = br_init.global_position
+	
 	var t = get_tree().create_tween()
 	t.tween_property(self, "global_position", target_position, 0.1)
 	
